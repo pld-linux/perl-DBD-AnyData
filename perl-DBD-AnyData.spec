@@ -1,12 +1,13 @@
 #
 # Conditional build:
-# _without_test - perform "make test"
+# _with_tests - perform "make test"
+#
 %include	/usr/lib/rpm/macros.perl
 %define	pdir	DBD
 %define	pnam	AnyData
-Summary:	DBD::AnyData -- DBI access to XML, CSV and other formats
-Summary(pl):	DBD::AnyData -- dostêp DBI do XML, CSV i innych formatów
-Name:		perl-%{pdir}-%{pnam}
+Summary:	DBD::AnyData - DBI access to XML, CSV and other formats
+Summary(pl):	DBD::AnyData - dostêp DBI do XML, CSV i innych formatów
+Name:		perl-DBD-AnyData
 Version:	0.05
 Release:	2
 License:	?
@@ -49,6 +50,8 @@ dostêpne przez DBI.
 %build
 perl Makefile.PL
 %{__make}
+
+# test seem to hang ... 
 %{?_with_tests:%{__make} test}
 
 %install
