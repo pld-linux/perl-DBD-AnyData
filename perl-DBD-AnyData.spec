@@ -9,7 +9,7 @@ Summary:	DBD::AnyData - DBI access to XML, CSV and other formats
 Summary(pl):	DBD::AnyData - dostêp DBI do XML, CSV i innych formatów
 Name:		perl-DBD-AnyData
 Version:	0.05
-Release:	3
+Release:	4
 License:	?
 Group:		Development/Languages/Perl
 Source0:	http://www.cpan.org/modules/by-module/%{pdir}/%{pdir}-%{pnam}-%{version}.tar.gz
@@ -22,7 +22,7 @@ BuildRequires:	perl-HTML-Parser
 BuildRequires:	perl-HTML-TableExtract
 BuildRequires:	perl-CGI
 %endif
-BuildRequires:	rpm-perlprov >= 3.0.3-26
+BuildRequires:	rpm-perlprov >= 4.1-13
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -48,7 +48,8 @@ dostêpne przez DBI.
 %setup -q -n %{pdir}-%{pnam}-%{version}
 
 %build
-%{__perl} Makefile.PL
+%{__perl} Makefile.PL \
+	INSTALLDIRS=vendor 
 %{__make}
 
 # test seem to hang ... 
@@ -64,5 +65,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%{perl_sitelib}/%{pdir}/*.pm
+%{perl_vendorlib}/%{pdir}/*.pm
 %{_mandir}/man3/*
