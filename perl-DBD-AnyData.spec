@@ -36,7 +36,7 @@ formats and from many sources.
 
 Currently supported formats include general format flatfiles (CSV,
 Fixed Length, Tab or Pipe "delimited", etc.), specific formats (passwd
-files, web logs, etc.), a variety of other kinds of formats (XML, Mp3,
+files, web logs, etc.), a variety of other kinds of formats (XML, MP3,
 HTML tables), and, for some operations, any DBI accessible database.
 
 %description -l pl
