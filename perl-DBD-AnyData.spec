@@ -13,6 +13,7 @@ Release:	4
 License:	?
 Group:		Development/Languages/Perl
 Source0:	http://www.cpan.org/modules/by-module/%{pdir}/%{pdir}-%{pnam}-%{version}.tar.gz
+# Source0-md5:	22b7b0bb14a817e968a1462a6dd7c837
 BuildRequires:	perl-devel >= 5.6
 %if %{?_with_tests:1}%{!?_with_tests:0}
 BuildRequires:	perl-AnyData
