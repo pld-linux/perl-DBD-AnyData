@@ -8,12 +8,11 @@ Summary:	DBD::AnyData -- DBI access to XML, CSV and other formats
 Summary(pl):	DBD::AnyData -- dostêp DBI do XML, CSV i innych formatów
 Name:		perl-%{pdir}-%{pnam}
 Version:	0.05
-Release:	1
+Release:	2
 License:	?
 Group:		Development/Languages/Perl
 Source0:	ftp://ftp.cpan.org/pub/CPAN/modules/by-module/%{pdir}/%{pdir}-%{pnam}-%{version}.tar.gz
 BuildRequires:	perl >= 5.6
-BuildRequires:	rpm-perlprov >= 3.0.3-26
 %if %{?_with_tests:1}%{!?_with_tests:0}
 BuildRequires:	perl-AnyData
 BuildRequires:	perl-XML-Parser
@@ -22,6 +21,7 @@ BuildRequires:	perl-HTML-Parser
 BuildRequires:	perl-HTML-TableExtract
 BuildRequires:	perl-CGI
 %endif
+BuildRequires:	rpm-perlprov >= 3.0.3-26
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -34,8 +34,14 @@ Fixed Length, Tab or Pipe "delimited", etc.), specific formats (passwd
 files, web logs, etc.), a variety of other kinds of formats (XML, Mp3,
 HTML tables), and, for some operations, any DBI accessible database.
 
-# %description -l pl
-# TODO
+%description -l pl
+Modu³ DBD::AnyData udostêpnia interfejs DBI/SQL do danych w wielu
+formatach, pobieranych z wielu ¼róde³. Aktualnie obs³ugiwane formaty
+zawieraj± ogólne sformatowane pliki (CSV, z polami o sta³ej d³ugo¶ci,
+oddzielonymi tabami lub znakiem |, itp.), okre¶lone formaty (pliki
+passwd, logi serwera WWW itp.), wiele innych rodzajów formatów (XML,
+mp3, tabele HTML) oraz, dla niektórych operacji, dowolne bazy danych
+dostêpne przez DBI.
 
 %prep
 %setup -q -n %{pdir}-%{pnam}-%{version}
