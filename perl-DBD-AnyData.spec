@@ -48,7 +48,7 @@ dostêpne przez DBI.
 %setup -q -n %{pdir}-%{pnam}-%{version}
 
 %build
-perl Makefile.PL
+%{__perl} Makefile.PL
 %{__make}
 
 # test seem to hang ... 
