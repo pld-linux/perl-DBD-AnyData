@@ -1,6 +1,6 @@
 #
 # Conditional build:
-# _with_tests - perform "make test"
+%bcond_without	tests	# don't perform "make test"
 #
 %include	/usr/lib/rpm/macros.perl
 %define	pdir	DBD
@@ -8,21 +8,24 @@
 Summary:	DBD::AnyData - DBI access to XML, CSV and other formats
 Summary(pl):	DBD::AnyData - dostêp DBI do XML, CSV i innych formatów
 Name:		perl-DBD-AnyData
-Version:	0.05
-Release:	4
-License:	?
+Version:	0.06
+Release:	1
+# same as perl
+License:	GPL or Artistic
 Group:		Development/Languages/Perl
 Source0:	http://www.cpan.org/modules/by-module/%{pdir}/%{pdir}-%{pnam}-%{version}.tar.gz
-# Source0-md5:	22b7b0bb14a817e968a1462a6dd7c837
-BuildRequires:	perl-devel >= 5.6
-%if %{?_with_tests:1}%{!?_with_tests:0}
+# Source0-md5:	0d1867fe1fe256a184a39be45ca0a413
+%if %{with tests}
 BuildRequires:	perl-AnyData
-BuildRequires:	perl-XML-Parser
-BuildRequires:	perl-XML-Twig
-BuildRequires:	perl-HTML-Parser
-BuildRequires:	perl-HTML-TableExtract
 BuildRequires:	perl-CGI
+BuildRequires:	perl-DBD-CSV
+# HTML and XML tests currently disabled
+#BuildRequires:	perl-HTML-Parser
+#BuildRequires:	perl-HTML-TableExtract
+#BuildRequires:	perl-XML-Parser
+#BuildRequires:	perl-XML-Twig
 %endif
+BuildRequires:	perl-devel >= 5.8.0
 BuildRequires:	rpm-perlprov >= 4.1-13
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -53,13 +56,13 @@ dostêpne przez DBI.
 	INSTALLDIRS=vendor
 %{__make}
 
-# test seem to hang ...
-%{?_with_tests:%{__make} test}
+%{?with_tests:%{__make} test}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
