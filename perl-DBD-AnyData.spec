@@ -8,13 +8,13 @@
 Summary:	DBD::AnyData - DBI access to XML, CSV and other formats
 Summary(pl):	DBD::AnyData - dostêp DBI do XML-a, CSV i innych formatów
 Name:		perl-DBD-AnyData
-Version:	0.06
+Version:	0.07
 Release:	1
 # same as perl
 License:	GPL or Artistic
 Group:		Development/Languages/Perl
 Source0:	http://www.cpan.org/modules/by-module/%{pdir}/%{pdir}-%{pnam}-%{version}.tar.gz
-# Source0-md5:	0d1867fe1fe256a184a39be45ca0a413
+# Source0-md5:	270aaf47c602189f2eeed6f3558ed896
 %if %{with tests}
 BuildRequires:	perl-AnyData
 BuildRequires:	perl-CGI
