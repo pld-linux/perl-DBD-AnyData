@@ -50,10 +50,10 @@ dostêpne przez DBI.
 
 %build
 %{__perl} Makefile.PL \
-	INSTALLDIRS=vendor 
+	INSTALLDIRS=vendor
 %{__make}
 
-# test seem to hang ... 
+# test seem to hang ...
 %{?_with_tests:%{__make} test}
 
 %install
