@@ -6,7 +6,7 @@
 %define	pdir	DBD
 %define	pnam	AnyData
 Summary:	DBD::AnyData - DBI access to XML, CSV and other formats
-Summary(pl):	DBD::AnyData - dostêp DBI do XML, CSV i innych formatów
+Summary(pl):	DBD::AnyData - dostêp DBI do XML-a, CSV i innych formatów
 Name:		perl-DBD-AnyData
 Version:	0.06
 Release:	1
