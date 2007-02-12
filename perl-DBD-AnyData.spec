@@ -6,7 +6,7 @@
 %define		pdir	DBD
 %define		pnam	AnyData
 Summary:	DBD::AnyData - DBI access to XML, CSV and other formats
-Summary(pl):	DBD::AnyData - dostêp DBI do XML-a, CSV i innych formatów
+Summary(pl.UTF-8):   DBD::AnyData - dostÄ™p DBI do XML-a, CSV i innych formatÃ³w
 Name:		perl-DBD-AnyData
 Version:	0.08
 Release:	2
@@ -39,14 +39,14 @@ Fixed Length, Tab or Pipe "delimited", etc.), specific formats (passwd
 files, web logs, etc.), a variety of other kinds of formats (XML, MP3,
 HTML tables), and, for some operations, any DBI accessible database.
 
-%description -l pl
-Modu³ DBD::AnyData udostêpnia interfejs DBI/SQL do danych w wielu
-formatach, pobieranych z wielu ¼róde³. Aktualnie obs³ugiwane formaty
-zawieraj± ogólne sformatowane pliki (CSV, z polami o sta³ej d³ugo¶ci,
-oddzielonymi tabami lub znakiem |, itp.), okre¶lone formaty (pliki
-passwd, logi serwera WWW itp.), wiele innych rodzajów formatów (XML,
-mp3, tabele HTML) oraz, dla niektórych operacji, dowolne bazy danych
-dostêpne przez DBI.
+%description -l pl.UTF-8
+ModuÅ‚ DBD::AnyData udostÄ™pnia interfejs DBI/SQL do danych w wielu
+formatach, pobieranych z wielu ÅºrÃ³deÅ‚. Aktualnie obsÅ‚ugiwane formaty
+zawierajÄ… ogÃ³lne sformatowane pliki (CSV, z polami o staÅ‚ej dÅ‚ugoÅ›ci,
+oddzielonymi tabami lub znakiem |, itp.), okreÅ›lone formaty (pliki
+passwd, logi serwera WWW itp.), wiele innych rodzajÃ³w formatÃ³w (XML,
+mp3, tabele HTML) oraz, dla niektÃ³rych operacji, dowolne bazy danych
+dostÄ™pne przez DBI.
 
 %prep
 %setup -q -n %{pdir}-%{pnam}-%{version}
