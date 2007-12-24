@@ -13,8 +13,9 @@ Release:	1
 # same as perl
 License:	GPL v1+ or Artistic
 Group:		Development/Languages/Perl
-Source0:	http://www.cpan.org/modules/by-module/%{pdir}/%{pdir}-%{pnam}-%{version}.tar.gz
+Source0:	http://www.cpan.org/modules/by-module/DBD/%{pdir}-%{pnam}-%{version}.tar.gz
 # Source0-md5:	32e8c7300c6917247e70afc85b947308
+URL:		http://search.cpan.org/dist/DBD-AnyData/
 %if %{with tests}
 BuildRequires:	perl-AnyData
 BuildRequires:	perl-CGI
