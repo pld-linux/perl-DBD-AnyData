@@ -1,0 +1,110 @@
+# DBI::DBD::SqlEngine table API: sql_data_source and Table->new($data,$attrs,$flags)
+--- DBD-AnyData-0.110.orig/lib/DBD/AnyData.pm
++++ DBD-AnyData-0.110/lib/DBD/AnyData.pm
+@@ -492,6 +492,16 @@
+ 
+ # sub finish ($) {}
+ 
++package DBD::AnyData::DataSource;
++
++use strict;
++use warnings;
++
++@DBD::AnyData::DataSource::ISA = qw(DBI::DBD::SqlEngine::DataSource);
++
++# the table is looked up in the AnyData catalog by open_table
++sub complete_table_name { 1 }
++
+ package DBD::AnyData::Statement;
+ 
+ use strict;
+@@ -499,10 +509,30 @@
+ 
+ @DBD::AnyData::Statement::ISA = qw(DBI::DBD::SqlEngine::Statement);
+ 
+-sub open_table ($$$$$)
++package DBD::AnyData::Table;
++
++use strict;
++use warnings;
++
++use Params::Util qw(_HASH0);
++
++@DBD::AnyData::Table::ISA = qw(DBI::DBD::SqlEngine::Table);
++
++sub bootstrap_table_meta
+ {
+-    my ( $self, $data, $tname, $createMode, $lockMode ) = @_;
+-    my $dbh = $data->{Database};
++    my ( $self, $dbh, $meta, @other ) = @_;
++    $meta->{sql_data_source} ||= 'DBD::AnyData::DataSource';
++    return $self->SUPER::bootstrap_table_meta( $dbh, $meta, @other );
++}
++
++sub new
++{
++    my ( $class, $data, $attrs, $flags ) = @_;
++    my $dbh   = $data->{Database};
++    my $tname = $attrs->{table};
++    my $createMode = $flags->{createMode};
++    my $lockMode   = $flags->{lockMode};
++
+     my $catalog = $dbh->func( $tname, 'ad_get_catalog' );
+     if ( !$catalog )
+     {
+@@ -514,22 +544,13 @@
+     my $format = $catalog->{format};
+     my $file   = $catalog->{file_name};
+     my $ad     = $catalog->{ad}
+-      #################################################################
+-      # Patch from Wes Hardaker
+-      #################################################################
+-      #    || AnyData::adTable( $format, $file, $createMode, $lockMode,
+-      #                         $catalog );
+       || AnyData::adTable( $format, $file, $createMode, $lockMode, $catalog, $tname );
+-    #print join("\n", $format,@$file,$createMode), "\n";
+-    #use Data::Dumper; print Dumper $catalog;
+-    #################################################################
+     my $table = $ad->prep_dbd_table( $tname, $createMode );
+-    my $cols = $table->{col_names};
++    my $cols  = $table->{col_names};
+     if ( $cols and ref $cols ne 'ARRAY' )
+     {
+-        #$dbh->DBI::set_err(99, "\n  $cols\n ");
+-        print "\n  $cols\n ";
+-        exit;
++        $dbh->set_err( $DBI::stderr, $cols );
++        return;
+     }
+     if (    'Base XML HTMLtable' =~ /$catalog->{format}/
+          or $file =~ /http:|ftp:/
+@@ -539,25 +560,10 @@
+         $dbh->func( $tname, 'ad', $ad, 'ad_mod_catalog' );
+     }
+ 
+-    return DBD::AnyData::Table->new($table);
+-}
+-
+-package DBD::AnyData::Table;
+-
+-use strict;
+-use warnings;
+-
+-use Params::Util qw(_HASH0);
+-
+-@DBD::AnyData::Table::ISA = qw(DBI::DBD::SqlEngine::Table);
+-
+-sub new
+-{
+-    my ( $proto, $attr ) = @_;
+-    $attr->{col_names} = $attr->{ad}->{storage}->{col_names};
+-    $attr->{col_nums}  = $attr->{ad}->{storage}->{col_nums};
+-    delete $attr->{col_nums} unless ( defined( $attr->{col_nums} ) and defined( _HASH0( $attr->{col_nums} ) ) );
+-    return $proto->SUPER::new($attr);
++    $table->{col_names} = $ad->{storage}->{col_names};
++    $table->{col_nums}  = $ad->{storage}->{col_nums};
++    delete $table->{col_nums} unless ( defined( $table->{col_nums} ) and defined( _HASH0( $table->{col_nums} ) ) );
++    return $class->SQL::Eval::Table::new($table);
+ }
+ 
+ sub trim

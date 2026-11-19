@@ -8,12 +8,13 @@ Summary:	DBD::AnyData - DBI access to XML, CSV and other formats
 Summary(pl.UTF-8):	DBD::AnyData - dostęp DBI do XML-a, CSV i innych formatów
 Name:		perl-DBD-AnyData
 Version:	0.110
-Release:	1
+Release:	2
 # same as perl
 License:	GPL v1+ or Artistic
 Group:		Development/Languages/Perl
 Source0:	https://www.cpan.org/modules/by-authors/id/R/RE/REHSACK/%{pdir}-%{pnam}-%{version}.tar.gz
 # Source0-md5:	cfb6e286ddc1ff06fc40f8e2053ff66f
+Patch0:		%{name}-sqlengine-api.patch
 URL:		http://search.cpan.org/dist/DBD-AnyData/
 %if %{with tests}
 BuildRequires:	perl-AnyData
@@ -50,6 +51,7 @@ dostępne przez DBI.
 
 %prep
 %setup -q -n %{pdir}-%{pnam}-%{version}
+%patch -P0 -p1
 
 %build
 %{__perl} Makefile.PL \
